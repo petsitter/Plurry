@@ -141,7 +141,9 @@ void EK_TM4C123GXL_initGeneral(void) {
 #include <ti/drivers/GPIO.h>
 
 /* Callback functions for the GPIO interrupt example. */
-void EncoderCallbackFunction(void);
+void EncoderCallbackAFunction(void);
+void EncoderCallbackBFunction(void);
+
 
 /* GPIO configuration structure */
 const GPIO_HWAttrs gpioHWAttrs[EK_TM4C123GXL_GPIOCOUNT] = {/**/
@@ -162,7 +164,7 @@ Hwi_Struct callbackHwi;
 
 /* GPIO callback structure to set callbacks for GPIO interrupts */
 const GPIO_Callbacks gpioPortACallbacks = {
-GPIO_PORTA_BASE, INT_GPIOA, &callbackHwi, { NULL, NULL, EncoderCallbackFunction, EncoderCallbackFunction,
+GPIO_PORTA_BASE, INT_GPIOA, &callbackHwi, { NULL, NULL, EncoderCallbackAFunction, EncoderCallbackBFunction,
 		NULL, NULL, NULL, NULL } };
 
 const GPIO_Config GPIO_config[] = { { &gpioHWAttrs[0] }, { &gpioHWAttrs[1] }, {

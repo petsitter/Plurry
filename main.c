@@ -30,14 +30,15 @@ void Plurry_init();
 
 LoadCellCommuParams loadcellParams;
 WifiCommuParams wifiParams;
+EncoderParams encoderParams;
 
+/* Tasks*/
 Void heartBeatFxn(UArg arg0, UArg arg1) {
 	while (1) {
 		GPIO_toggle(Plurry_TestLED2);
 		Task_sleep(500);
 	}
 }
-
 Void loadCellCommunicationFxn() {
 	int i;
 	volatile int test;
@@ -85,9 +86,39 @@ Void ActionModule5Fxn() {
 
 }
 
-void EncoderCallbackFunction() {
-
+/* interrupt service routines*/
+void EncoderCallbackAFunction() {
+	GPIO_clearInt(Plurry_ENC_A);
+	if(GPIO_read(Plurry_ENC_A) > 0){
+		//rising edge
+		if(GPIO_read(Plurry_ENC_B) > 0){
+			encoderParams.position++;
+		}
+		else{
+			encoderParams.position--;
+		}
+	}
+	else{
+		//falling edge
+	}
 }
+void EncoderCallbackBFunction() {
+	GPIO_clearInt(Plurry_ENC_B);
+	if(GPIO_read(Plurry_ENC_B) > 0){
+			//rising edge
+			if(GPIO_read(Plurry_ENC_A) > 0){
+				encoderParams.position--;
+			}
+			else{
+				encoderParams.position++;
+			}
+		}
+		else{
+			//falling edge
+		}
+}
+
+
 
 int main(void) {
 	/* Call board init functions */

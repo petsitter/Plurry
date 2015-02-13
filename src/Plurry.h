@@ -24,6 +24,10 @@
 #define LOADCELL_A 0
 #define LOADCELL_B 1
 
+struct EncoderParams_typedef{
+	int position;
+}typedef EncoderParams;
+
 struct LoadCellCommunicationParams_typedef{
 	int loadcellNextRead;
 
@@ -53,5 +57,6 @@ struct ActionModuleCommunicationParams_typedef{
 
 extern LoadCellCommuParams loadcellParams;
 extern WifiCommuParams wifiParams;
+extern EncoderParams encoderParams;
 
 #endif
